@@ -1,85 +1,136 @@
-﻿namespace ItemEatGame
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ItemEatGame
 {
+    class Point
+    {
+        public int x;
+        public int y;
+        public Point(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+    }
     class Program
     {
+        enum Mark { empty, player, item }
+        static int screenX = 50, screenY = 25;
+        static Mark[,] screen = new Mark[screenX, screenY];
+        static List<Point> itemList = new List<Point>();
+        static int px = 25, py = 12;
+        static bool isGameOn = true;
         static void Main(string[] args)
         {
-            Random random = new Random(); // 랜덤 클래스 불러오기
-            ConsoleKeyInfo keys; // 키보드 입력 불러오기
-
-            int[,] map = new int[51, 21]; // 50 * 20 크기의 맵 생성
-
-            // 모든 배열 값을 돌아다니는 for문
-            for (int i = 0; i < map.GetLength(0); i++)
+            ClearScreen(); // screen을 empty로 채움
+            MakeItem(); // 아이템 위치 생성 후 리스트 및 스크린에 보관
+            DrawScreen(); // 스크린 그리기
+            while (isGameOn == true)
             {
-                for (int j = 0; j < map.GetLength(1); j++)
-                    map[i, j] = 0; // 모든 배열의 값을 0으로 바꿈
+                MovePlayer();
+                CheckState();
             }
-
-            for (int i = 0; i < 10; i++) // 열번 반복
+            ExitGame();
+        }
+        static void ClearScreen()
+        {
+            for (int i = 0; i < screen.GetLength(0); i++)
             {
-                int itemX = random.Next(51); // 0부터 50중 랜덤 숫자를 아이템에 X좌표로 정하기
-                int itemY = random.Next(21); // 0부터 20중 랜덤 숫자를 아이템에 Y좌표로 정하기
-                map[itemX, itemY] = 1; // X, Y 좌표를 맵에 저장하기
-            }
-
-            int x = 25, y = 10; // 플레이어의 X, Y좌표
-            int lostItem = 10; // 남은 아이템 수
-            while (true) // 무한 반복
-            {
-                if (lostItem == 0) // 남은 아ㅣ템 수가 0이라면
+                for (int j = 0; j < screen.GetLength(1); j++)
                 {
-                    Console.WriteLine("축하합니다! 아이템을 전부 모았습니다!"); // 축하 메세지
-                    break; // 무한반복 멈추기
+                    screen[i, j] = Mark.empty;
                 }
-
-                Console.Clear(); // 콘솔 초기화
-
-                Console.SetCursorPosition(1, 25); // 1, 25 좌표에 콘솔 커서 놓기
-                Console.Write("============ X좌표: " + x + " Y좌표: " + y + " 남은 아이템 갯수: " + lostItem + " ============"); // 플레이어의 X좌표, Y좌표, 남은 아이템 갯수를 출력
-
-                // 맵의 크기 만큼 반복
-                for (int i = 0; i < map.GetLength(0); i++)
+            }
+        }
+        static void MakeItem()
+        {
+            Random random = new Random();
+            for (int i = 0; i < 10; i++)
+            {
+                int x = random.Next(1, screenX - 1);
+                int y = random.Next(1, screenY - 1);
+                Point point = new Point(x, y);
+                itemList.Add(point);
+                screen[x, y] = Mark.item;
+            }
+        }
+        static void DrawScreen()
+        {
+            for (int i = 0; i < screen.GetLength(0); i++)
+            {
+                for (int j = 0; j < screen.GetLength(1); j++)
                 {
-                    for (int j = 0; j < map.GetLength(1); j++)
+                    if (screen[i, j] == Mark.item)
                     {
-                        if (map[i, j] == 1) // 만약 아이템이 있는 좌표라면
+                        Console.SetCursorPosition(i, j); // 그 좌표에 콘솔 커서 놓기
+                        Console.Write("$"); // 아이템 좌표에 $ 출력하기
+                    }
+
+                }
+            }
+            ShowCursorPosition();
+        }
+        private static void ShowCursorPosition()
+        {
+            Console.SetCursorPosition(15, 30);
+            Console.Write("============ X좌표: " + px + " Y좌표: " + py + " 남은 아이템 갯수: " + itemList.Count + " ============"); // 플레이어의 X좌표, Y좌표, 남은 아이템 갯수를 출력
+
+        }
+        static void MovePlayer()
+        {
+            ConsoleKeyInfo cki = Console.ReadKey();
+            Console.SetCursorPosition(px, py);
+            Console.WriteLine(" ");
+
+            switch (cki.Key)
+            {
+                case ConsoleKey.LeftArrow:
+                    px--;
+                    break;
+                case ConsoleKey.RightArrow:
+                    px++;
+                    break;
+                case ConsoleKey.UpArrow:
+                    py--;
+                    break;
+                case ConsoleKey.DownArrow:
+                    py++;
+                    break;
+            }
+            if (px >= screenX) px = 1;
+            if (py >= screenY) py = 1;
+            if (px <= 0) px = screenX - 1;
+            if (py <= 0) py = screenY - 1;
+            Console.SetCursorPosition(px, py);
+            Console.Write("P");
+            ShowCursorPosition();
+        }
+        static void CheckState()
+        {
+            if (screen[px, py] == Mark.item)
+            {
+                for (int i = itemList.Count - 1; i >= 0; i--)
+                {
+                    if (itemList[i].x == px && itemList[i].y == py)
+                    {
+                        itemList.Remove(itemList[i]);
+                        if (itemList.Count == 0)
                         {
-                            Console.SetCursorPosition(i, j); // 그 좌표에 콘솔 커서 놓기
-                            Console.Write("$"); // 아이템 좌표에 $ 출력하기
+                            isGameOn = false;
                         }
                     }
                 }
-                Console.SetCursorPosition(x, y); // 플레이어의 x, y좌표에 콘솔 커서 놓기
-                Console.Write("P"); // 플레이어 좌표에 P 출력
 
-                keys = Console.ReadKey(true); // 키를 누르고 있다면
-
-                switch (keys.Key)
-                {
-                    case ConsoleKey.LeftArrow: // 왼쪽 방향키를 눌렀다면
-                        if (x <= 0) x = 50; // x좌표가 0 이하면 x 좌표 50으로 바꾸기
-                        else x--; // 아니면 x좌표 -1
-                        break;
-                    case ConsoleKey.RightArrow:
-                        if (x >= 50) x = 0; // x좌표가 50 이상이면 x 좌표 0으로 바꾸기
-                        else x++; // 아니면 x좌표 +1
-                        break;
-                    case ConsoleKey.UpArrow:
-                        if (y <= 0) y = 20; // y좌표가 0 이하면 y 좌표 20으로 바꾸기
-                        else y--; // 아니면 y좌표 -1
-                        break;
-                    case ConsoleKey.DownArrow:
-                        if (y >= 20) y = 0; // y좌표가 20 이상이면 y 좌표 0으로 바꾸기
-                        else y++; // 아니면 y좌표 +1
-                        break;
-                }
-                if (map[x, y] == 1) // 만약 플레이어 좌표가 아이템 위치에 있다면
-                {
-                    map[x, y] = 0; // 그 위치의 아이템 삭제
-                    lostItem--; // 남은 아이템 갯수 -1
-                }
+                screen[px, py] = Mark.empty;
             }
+        }
+        static void ExitGame()
+        {
+            Console.Write("게임 끝");
         }
     }
 }
