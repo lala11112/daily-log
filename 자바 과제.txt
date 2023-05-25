@@ -1,0 +1,242 @@
+7-2
+public class Student {
+	
+	int id;
+	String name;
+	void insertRecord(int parm1, String parm2)
+	{
+		id = parm1;
+		name = parm2;
+	}
+	
+	void printInfo()
+	{
+		System.out.println("아이디: " + id);
+		System.out.println("이름: " + name);
+	}
+	
+	
+	
+}
+
+7-3
+public class Student {
+	
+	int id;
+	String name;
+	Student(){
+		System.out.println("기본 생성자 호출");
+	}
+	void insertRecord(int parm1, String parm2)
+	{
+		id = parm1;
+		name = parm2;
+	}
+	
+	void printInfo()
+	{
+		System.out.println("아이디: " + id);
+		System.out.println("이름: " + name);
+	}
+	
+	
+	
+}
+
+public class Constructor01{
+public static void main(String[] args) {
+		System.out.println("학생 주소록");
+		Student stObj = new Student();
+		
+		stObj.insertRecord(23232322, "박재웅");
+		stObj.printInfo();
+	}
+
+}
+
+7-4
+
+public class Student {
+	
+	int id;
+	String name;
+	Student(){
+		System.out.println("기본 생성자 호출");
+	}
+	Student(int pram1, String pram2){
+		System.out.println("일반 생성자 호출");
+		
+		id = pram1;
+		name pram2;
+	}
+	void insertRecord(int parm1, String parm2)
+	{
+		id = parm1;
+		name = parm2;
+	}
+	
+	void printInfo()
+	{
+		System.out.println("아이디: " + id);
+		System.out.println("이름: " + name);
+	}
+	
+	
+	
+}
+
+public class Constructor02{
+public static void main(String[] args) {
+		System.out.println("학생 주소록");
+		Student stObj1 = new Student();
+		
+		stObj1.insertRecord(23232322, "박재웅");
+		stObj1.printInfo();
+		
+		Student stObj2 = new Student(2323231, "이이잉");
+		stObj2.printInfo();
+	}
+
+}
+
+7-5
+
+public class Add {
+	Add(){
+		System.out.println("기본 생성자 호출");
+	}
+	
+	Add(int a, int b)
+	{
+		System.out.println("일반 생성자 호출 Add(int, int)");
+		System.out.peintln(a + "+" + b + " = " + (a+b));
+	}
+	Add(double a, double b)
+	{
+		System.out.println("일반 생성자 호출 Add(double, double)");
+		System.out.peintln(a + "+" + b + " = " + (a+b));
+	}
+	Add(int a, double b)
+	{
+		System.out.println("일반 생성자 호출 Add(int, double)");
+		System.out.peintln(a + "+" + b + " = " + (a+b));
+	}
+	
+	public static void main(String[] args) {
+		Add numObj1 = new Add(1,2);
+		Add numObj2 = new Add(1.3,4.3);
+		Add numObj3 = new Add(1,2.3);
+	}
+
+}
+
+7-6
+
+
+public class MemberChain {
+	String firstName;
+	String country;
+	int age;
+	
+	public MemberChain(String mName) {
+		this(mName, 20);
+	}
+	public MemberChain(String mName, int mAge) {
+		this(mName, mAge, "대한민국");
+	}
+	
+	public MemberChain(String mName, int mAge, String mCountry) {
+		firstName = mName;
+		age = mAge;
+		counrtry = mCountry;
+	}
+	void printlnfo() {
+		System.out.println(firstName);
+		System.out.println(country);
+		System.out.println(age);
+	}
+}
+public class Constructor04{
+	public static void main(String[] args) {
+		MemberChain object = new MemberChain();
+		object.printInfo();
+	}
+
+}
+
+7-8
+
+public class Dog {
+	public String breed;
+	public String color;
+	protected int age;
+	
+	public void bowwow()
+	{
+		System.out.println("멍멍 짖다");
+	}
+	protected void run()
+	{
+		System.out.println("달리다.");
+	}
+}
+public class AccessModifier02{
+	public static void main(String[] args)
+	{
+		Dog obj = new Dog();
+		
+		obj.breed = "시바견";
+		obj.color = "갈색";
+		
+		System.out.println("강아지 품종: " + obj.breed);
+		System.out.println("강아지 색상: " + obj.color);
+		
+		obj.bowwow();
+		obj.age = 10;
+		System.out.println("강아지 나이: "+ obj.age);
+		obj.run();
+	}
+}
+
+7-9
+
+public class Dog {
+	public String breed;
+	public String color;
+	protected int age;
+	private String name;
+	
+	public void bowwow()
+	{
+		System.out.println("멍멍 짖다");
+	}
+	protected void run()
+	{
+		System.out.println("달리다.");
+	}
+	private void sleep()
+	{
+		System.out.println("자다.");
+	}
+}
+public class AccessModifier02{
+	public static void main(String[] args)
+	{
+		Dog obj = new Dog();
+		
+		obj.breed = "시바견";
+		obj.color = "갈색";
+		
+		System.out.println("강아지 품종: " + obj.breed);
+		System.out.println("강아지 색상: " + obj.color);
+		
+		obj.bowwow();
+		obj.age = 10;
+		System.out.println("강아지 나이: "+ obj.age);
+		obj.run();
+		
+		obj.name = "다운";
+		System.out.println("강아지 이름: " + obj.name);
+		obj.sleep();
+	}
+}
