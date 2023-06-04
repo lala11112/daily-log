@@ -1,0 +1,15 @@
+C:\Users\경기도교육청\source\repos\Yone\Yone\bin\Debug\net6.0\Yone.exe
+C:\Users\경기도교육청\source\repos\Yone\Yone\bin\Debug\net6.0\Yone.deps.json
+C:\Users\경기도교육청\source\repos\Yone\Yone\bin\Debug\net6.0\Yone.runtimeconfig.json
+C:\Users\경기도교육청\source\repos\Yone\Yone\bin\Debug\net6.0\Yone.dll
+C:\Users\경기도교육청\source\repos\Yone\Yone\bin\Debug\net6.0\Yone.pdb
+C:\Users\경기도교육청\source\repos\Yone\Yone\obj\Debug\net6.0\Yone.csproj.AssemblyReference.cache
+C:\Users\경기도교육청\source\repos\Yone\Yone\obj\Debug\net6.0\Yone.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\경기도교육청\source\repos\Yone\Yone\obj\Debug\net6.0\Yone.AssemblyInfoInputs.cache
+C:\Users\경기도교육청\source\repos\Yone\Yone\obj\Debug\net6.0\Yone.AssemblyInfo.cs
+C:\Users\경기도교육청\source\repos\Yone\Yone\obj\Debug\net6.0\Yone.csproj.CoreCompileInputs.cache
+C:\Users\경기도교육청\source\repos\Yone\Yone\obj\Debug\net6.0\Yone.dll
+C:\Users\경기도교육청\source\repos\Yone\Yone\obj\Debug\net6.0\refint\Yone.dll
+C:\Users\경기도교육청\source\repos\Yone\Yone\obj\Debug\net6.0\Yone.pdb
+C:\Users\경기도교육청\source\repos\Yone\Yone\obj\Debug\net6.0\Yone.genruntimeconfig.cache
+C:\Users\경기도교육청\source\repos\Yone\Yone\obj\Debug\net6.0\ref\Yone.dll
